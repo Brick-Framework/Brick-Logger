@@ -16,6 +16,7 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
+          server-id: github
       
       - name: Compile and Run Test Coverage
         run: mvn clean verify
