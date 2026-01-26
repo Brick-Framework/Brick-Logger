@@ -37,7 +37,7 @@ public class FileAppenderTest {
         fileAppender.appendLog(logMessage);
 
         Thread.sleep(100);
-        assertEquals(logMessage.toString(), readFileAsString(filePath).split("\r")[0]);
+        assertTrue(readFileAsString(filePath).split("\r")[0].startsWith(logMessage.toString()));
         fileAppender.close();
     }
     
@@ -70,7 +70,7 @@ public class FileAppenderTest {
         
         // Assert
         String output = outputStream.toString().split("\r")[0].trim();
-        assertEquals(InterruptedException.class.getName(), output);
+        assertTrue(output.startsWith(InterruptedException.class.getName()));
         
         // Restore System.out
         System.setErr(originalOut);

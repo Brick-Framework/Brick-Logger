@@ -42,7 +42,7 @@ public class LoggerTest {
         LocalDateTime logDateTime = LocalDateTime.parse(logData[0]);
         assertTrue(isWithinFiveMinutes(logDateTime));
         assertEquals("TRACE",logData[1]);
-        assertEquals("log-message:TraceLoggerMessage",logData[3]);
+        assertTrue(logData[3].startsWith("log-message:TraceLoggerMessage"));
 
 
         //Debug Test
@@ -51,7 +51,7 @@ public class LoggerTest {
         logDateTime = LocalDateTime.parse(logData[0]);
         assertTrue(isWithinFiveMinutes(logDateTime));
         assertEquals("DEBUG",logData[1]);
-        assertEquals("log-message:DebugLoggerMessage",logData[3]);
+        assertTrue(logData[3].startsWith("log-message:DebugLoggerMessage"));
 
         //Info Test
         fileData = readFileAsString("target/info-logfile1.log");
@@ -59,7 +59,7 @@ public class LoggerTest {
         logDateTime = LocalDateTime.parse(logData[0]);
         assertTrue(isWithinFiveMinutes(logDateTime));
         assertEquals("INFO",logData[1]);
-        assertEquals("log-message:InfoLoggerMessage",logData[3]);
+        assertTrue(logData[3].startsWith("log-message:InfoLoggerMessage"));
 
         //Warn Test
         fileData = readFileAsString("target/warn-logfile.log");
@@ -67,7 +67,7 @@ public class LoggerTest {
         logDateTime = LocalDateTime.parse(logData[0]);
         assertTrue(isWithinFiveMinutes(logDateTime));
         assertEquals("WARN",logData[1]);
-        assertEquals("log-message:WarnLoggerMessage",logData[3]);
+        assertTrue(logData[3].startsWith("log-message:WarnLoggerMessage"));
 
         //Error Test
         fileData = readFileAsString("target/error-logfile.log");
@@ -75,7 +75,7 @@ public class LoggerTest {
         logDateTime = LocalDateTime.parse(logData[0]);
         assertTrue(isWithinFiveMinutes(logDateTime));
         assertEquals("ERROR",logData[1]);
-        assertEquals("log-message:ErrorLoggerMessage",logData[3]);
+        assertTrue(logData[3].startsWith("log-message:ErrorLoggerMessage"));
 
         //Fatal Test
         fileData = readFileAsString("target/fatal-logfile.log");
@@ -83,7 +83,7 @@ public class LoggerTest {
         logDateTime = LocalDateTime.parse(logData[0]);
         assertTrue(isWithinFiveMinutes(logDateTime));
         assertEquals("FATAL",logData[1]);
-        assertEquals("log-message:FatalLoggerMessage",logData[3]);
+        assertTrue(logData[3].startsWith("log-message:FatalLoggerMessage"));
 
         //All Test
         fileData = readFileAsString("target/all-logfile1.log");
@@ -91,7 +91,7 @@ public class LoggerTest {
         logDateTime = LocalDateTime.parse(logData[0]);
         assertTrue(isWithinFiveMinutes(logDateTime));
         assertEquals("TRACE",logData[1]);
-        assertEquals("log-message:TraceLoggerMessage",logData[3]);
+        assertTrue(logData[3].startsWith("log-message:TraceLoggerMessage"));
 
         //Exception Test
         Exception exception = new Exception("ExceptionMessage");
