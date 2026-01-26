@@ -101,7 +101,7 @@ public class LoggerTest {
         //Exception Test
         Exception exception = new Exception("ExceptionMessage");
         Logger.logException(exception);
-        Thread.sleep(50);
+        Thread.sleep(150);
         fileData = readFileAsString("target/warn-logfile.log");
         logData = fileData.split("\r\n")[2].split(" ");
         logDateTime = LocalDateTime.parse(logData[0]);
@@ -111,7 +111,7 @@ public class LoggerTest {
         //Error Test
         Error error = new Error("ErrorMessage");
         Logger.logError(error);
-        Thread.sleep(50);
+        Thread.sleep(150);
         fileData = readFileAsString("target/error-logfile.log");
         logData = fileData.split("\r\n")[2].split(" ");
         logDateTime = LocalDateTime.parse(logData[0]);
