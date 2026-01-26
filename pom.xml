@@ -46,7 +46,7 @@
 
 		<dependency>
 			<groupId>com.brick</groupId>
-			<artifactId>com.brick.utilities</artifactId>
+			<artifactId>utilities</artifactId>
 			<version>1.0.0</version>
 		</dependency>
 	</dependencies>
