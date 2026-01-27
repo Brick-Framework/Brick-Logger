@@ -103,7 +103,7 @@ public class LoggerTest {
         Logger.logException(exception);
         Thread.sleep(150);
         fileData = readFileAsString("target/warn-logfile.log");
-        logData = fileData.split("\r\n")[2].split(" ");
+        logData = fileData.split("\\R")[2].split(" ");
         logDateTime = LocalDateTime.parse(logData[0]);
         assertTrue(isWithinFiveMinutes(logDateTime));
         assertEquals("WARN",logData[1]);
@@ -113,7 +113,7 @@ public class LoggerTest {
         Logger.logError(error);
         Thread.sleep(150);
         fileData = readFileAsString("target/error-logfile.log");
-        logData = fileData.split("\r\n")[2].split(" ");
+        logData = fileData.split("\\R")[2].split(" ");
         logDateTime = LocalDateTime.parse(logData[0]);
         assertTrue(isWithinFiveMinutes(logDateTime));
         assertEquals("ERROR",logData[1]);
