@@ -29,6 +29,8 @@ jobs:
       # Step 1: Compile & Enforce Coverage (Fails if < 90%)
       - name: Build & Check Coverage
         run: mvn clean verify
+        env:
+          GITHUB_TOKEN: ${{ secrets.ADMIN_PAT }}
 
       # Step 2: Configure Git User (Needed for tagging and committing)
       - name: Configure Git
@@ -43,7 +45,7 @@ jobs:
         env:
           # This specific env var name (GITHUB_TOKEN) is mapped automatically 
           # by the setup-java action to the 'server-id' credential.
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.ADMIN_PAT }}
 
       # Step 4: Extract Current Version & Create Tag
       - name: Tag Current Version
