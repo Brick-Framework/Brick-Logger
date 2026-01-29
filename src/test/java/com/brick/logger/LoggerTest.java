@@ -8,7 +8,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.concurrent.TimeUnit;
 
+import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LoggerTest {
@@ -33,6 +35,7 @@ public class LoggerTest {
         Logger.warn("WarnLoggerMessage");
         Logger.error("ErrorLoggerMessage");
         Logger.fatal("FatalLoggerMessage");
+        await().pollDelay(2, TimeUnit.SECONDS).until(() -> true);
 
 
         // Trace Test
@@ -95,6 +98,7 @@ public class LoggerTest {
         //Exception Test
         Exception exception = new Exception("ExceptionMessage");
         Logger.logException(exception);
+        await().pollDelay(2, TimeUnit.SECONDS).until(() -> true);
         fileData = readFileAsString("target/warn-logfile.log");
         logData = fileData.split("\\R")[2].split(" ");
         logDateTime = LocalDateTime.parse(logData[0]);
@@ -104,6 +108,7 @@ public class LoggerTest {
         //Error Test
         Error error = new Error("ErrorMessage");
         Logger.logError(error);
+        await().pollDelay(2, TimeUnit.SECONDS).until(() -> true);
         fileData = readFileAsString("target/error-logfile.log");
         logData = fileData.split("\\R")[2].split(" ");
         logDateTime = LocalDateTime.parse(logData[0]);
