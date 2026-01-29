@@ -28,7 +28,7 @@ public class FileAppenderTest {
     }
 
     @Test
-    public void test_fileOutput() throws IOException, InterruptedException {
+    public void test_fileOutput() throws IOException {
         String filePath = "target/file-appender.log";
         FileAppender fileAppender = new FileAppender(filePath,true);
 
