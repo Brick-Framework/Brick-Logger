@@ -50,7 +50,6 @@ public class LoggerTest {
         fileData = readFileAsString("target/all-logfile1.log");
         logData = fileData.split("\r")[0].split(" ");
         logDateTime = LocalDateTime.parse(logData[0]);
-        logDateTime = LocalDateTime.parse(logData[0]);
         assertTrue(isWithinFiveMinutes(logDateTime));
         assertEquals("TRACE",logData[1]);
         assertTrue(logData[3].startsWith("log-message:TraceLoggerMessage"));
@@ -82,7 +81,6 @@ public class LoggerTest {
     	String[] logData = fileData.split("\r")[0].split(" ");
     	LocalDateTime logDateTime = LocalDateTime.parse(logData[0]);
         logData = fileData.split("\r")[0].split(" ");
-        logDateTime = LocalDateTime.parse(logData[0]);
         assertTrue(isWithinFiveMinutes(logDateTime));
         assertEquals("INFO",logData[1]);
         assertTrue(logData[3].startsWith("log-message:InfoLoggerMessage"));
@@ -98,7 +96,6 @@ public class LoggerTest {
     	String[] logData = fileData.split("\r")[0].split(" ");
     	LocalDateTime logDateTime = LocalDateTime.parse(logData[0]);
         logData = fileData.split("\r")[0].split(" ");
-        logDateTime = LocalDateTime.parse(logData[0]);
         assertTrue(isWithinFiveMinutes(logDateTime));
         assertEquals("WARN",logData[1]);
         assertTrue(logData[3].startsWith("log-message:WarnLoggerMessage"));
@@ -114,7 +111,6 @@ public class LoggerTest {
     	String[] logData = fileData.split("\r")[0].split(" ");
     	LocalDateTime logDateTime = LocalDateTime.parse(logData[0]);
         logData = fileData.split("\r")[0].split(" ");
-        logDateTime = LocalDateTime.parse(logData[0]);
         assertTrue(isWithinFiveMinutes(logDateTime));
         assertEquals("ERROR",logData[1]);
         assertTrue(logData[3].startsWith("log-message:ErrorLoggerMessage"));
@@ -130,7 +126,6 @@ public class LoggerTest {
     	String[] logData = fileData.split("\r")[0].split(" ");
     	LocalDateTime logDateTime = LocalDateTime.parse(logData[0]);
         logData = fileData.split("\r")[0].split(" ");
-        logDateTime = LocalDateTime.parse(logData[0]);
         assertTrue(isWithinFiveMinutes(logDateTime));
         assertEquals("FATAL",logData[1]);
         assertTrue(logData[3].startsWith("log-message:FatalLoggerMessage"));
