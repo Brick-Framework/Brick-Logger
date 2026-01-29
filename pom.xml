@@ -45,9 +45,16 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.awaitility</groupId>
+			<artifactId>awaitility</artifactId>
+			<version>4.2.0</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
 			<groupId>com.brick</groupId>
 			<artifactId>utilities</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.10</version>
 		</dependency>
 	</dependencies>
 

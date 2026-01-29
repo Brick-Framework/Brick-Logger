@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
     and passes it to handler which then outputs it to various destinations
  */
 public class Logger {
+	
+	private static final String NEXT_LINE_INDENT = Logger.NEXT_LINE_INDENT;
     
     private static Logger instance;
 
@@ -20,13 +22,9 @@ public class Logger {
         handler = LogHandler.getLogHandlerChain();
     }
     
-    public static Logger getInstance() {
+    public static synchronized Logger getInstance() {
         if (instance == null) {
-            synchronized (Logger.class) {
-                if (instance == null) {
-                    instance = new Logger();
-                }
-            }
+            instance = new Logger();
         }
         return instance;
     }
@@ -96,9 +94,9 @@ public class Logger {
         exceptionMessageStackTrace.setLevel(LogLevel.WARN);
         exceptionMessageStackTrace.setTimestamp(LocalDateTime.now());
 
-        StringBuilder exceptionTrace = new StringBuilder(exception.getClass().getName() + "\n\t\t");
+        StringBuilder exceptionTrace = new StringBuilder(exception.getClass().getName() + Logger.NEXT_LINE_INDENT);
         for( StackTraceElement traceLine: exception.getStackTrace() ){
-            exceptionTrace.append(traceLine.toString()).append("\n\t\t");
+            exceptionTrace.append(traceLine.toString()).append(Logger.NEXT_LINE_INDENT);
         }
         String stackTraceMessage = exceptionTrace.substring(0,exceptionTrace.length()-2);
         exceptionMessageStackTrace.setLogMessage(stackTraceMessage);
@@ -118,7 +116,7 @@ public class Logger {
 
         StringBuilder exceptionTrace = new StringBuilder(error.getClass().getName() + "\n\t\t " );
         for( StackTraceElement traceLine: error.getStackTrace() ){
-            exceptionTrace.append(traceLine.toString()).append("\n\t\t");
+            exceptionTrace.append(traceLine.toString()).append(Logger.NEXT_LINE_INDENT);
         }
         String stackTraceMessage = exceptionTrace.substring(0,exceptionTrace.length()-2);
         exceptionMessageStackTrace.setLogMessage(stackTraceMessage);

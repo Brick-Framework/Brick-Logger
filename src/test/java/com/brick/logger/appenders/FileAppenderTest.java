@@ -1,8 +1,6 @@
 package com.brick.logger.appenders;
 
-import com.brick.logger.utility.LogLevel;
-import com.brick.logger.utility.Message;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -13,9 +11,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.concurrent.TimeUnit;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+
+import com.brick.logger.utility.LogLevel;
+import com.brick.logger.utility.Message;
+
+import static org.awaitility.Awaitility.await;
 
 public class FileAppenderTest {
 
@@ -36,7 +39,7 @@ public class FileAppenderTest {
 
         fileAppender.appendLog(logMessage);
 
-        Thread.sleep(100);
+        await().pollDelay(1, TimeUnit.SECONDS).until(() -> true);
         assertTrue(readFileAsString(filePath).split("\r")[0].startsWith(logMessage.toString()));
         fileAppender.close();
     }
@@ -93,5 +96,9 @@ public class FileAppenderTest {
     	
     	assertTrue(Files.exists(path1));
     	assertTrue(Files.exists(path2));
+    	
+    	fileAppender1.close();
+    	fileAppender2.close();
+    	fileAppender3.close();
     }
 }
