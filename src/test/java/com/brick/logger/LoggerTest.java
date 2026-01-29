@@ -65,7 +65,6 @@ public class LoggerTest {
     	String[] logData = fileData.split("\r")[0].split(" ");
     	LocalDateTime logDateTime = LocalDateTime.parse(logData[0]);
         logData = fileData.split("\r")[0].split(" ");
-        logDateTime = LocalDateTime.parse(logData[0]);
         assertTrue(isWithinFiveMinutes(logDateTime));
         assertEquals("DEBUG",logData[1]);
         assertTrue(logData[3].startsWith("log-message:DebugLoggerMessage"));
