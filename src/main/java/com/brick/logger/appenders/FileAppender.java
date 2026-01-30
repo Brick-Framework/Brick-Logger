@@ -58,6 +58,7 @@ public class FileAppender implements LogAppender, Closeable {
                    }
                }
            } catch (InterruptedException e) {
+        	   Thread.currentThread().interrupt();
                e.printStackTrace();
            }
         });
@@ -72,7 +73,7 @@ public class FileAppender implements LogAppender, Closeable {
     @Override
     public void appendLog(Message message) {
         if( this.running ){
-            queue.offer(message);
+        	queue.add(message);
         }
     }
 
@@ -85,6 +86,7 @@ public class FileAppender implements LogAppender, Closeable {
         try{
             worker.join();
         }catch (InterruptedException e){
+        	Thread.currentThread().interrupt();
             e.printStackTrace();
         }
         writer.close();

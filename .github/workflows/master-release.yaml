@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  release:
+  build-and-test:
     runs-on: ubuntu-latest
     permissions:
       contents: write # REQUIRED: Allow pushing tags and commits
@@ -32,6 +32,52 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.ADMIN_PAT }}
 
+  sonar-analysis:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # REQUIRED: Allow pushing tags and commits
+      packages: write  # Needed to upload the JAR
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.ADMIN_PAT }}
+          fetch-depth: 0
+      
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'maven'
+          server-id: github
+
+      - name: Cache SonarQube packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+          
+      - name: Build and analyze
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.ADMIN_PAT }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Brick-Framework_Brick-Logger -Dsonar.qualitygate.wait=true
+
+  publish-package:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # REQUIRED: Allow pushing tags and commits
+      packages: write  # Needed to upload the JAR
+
+    steps:
       # Step 2: Configure Git User (Needed for tagging and committing)
       - name: Configure Git
         run: |
