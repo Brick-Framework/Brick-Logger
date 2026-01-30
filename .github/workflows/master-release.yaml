@@ -34,6 +34,7 @@ jobs:
 
   sonar-analysis:
     runs-on: ubuntu-latest
+    needs: build-and-test
     permissions:
       contents: write # REQUIRED: Allow pushing tags and commits
       packages: write  # Needed to upload the JAR
@@ -73,6 +74,7 @@ jobs:
 
   publish-package:
     runs-on: ubuntu-latest
+    needs: sonar-analysis
     permissions:
       contents: write # REQUIRED: Allow pushing tags and commits
       packages: write  # Needed to upload the JAR
