@@ -78,6 +78,19 @@ jobs:
       packages: write  # Needed to upload the JAR
 
     steps:
+      - uses: actions/checkout@v4
+          with:
+            token: ${{ secrets.ADMIN_PAT }}
+            fetch-depth: 0
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'maven'
+          server-id: github
+          
       # Step 2: Configure Git User (Needed for tagging and committing)
       - name: Configure Git
         run: |
