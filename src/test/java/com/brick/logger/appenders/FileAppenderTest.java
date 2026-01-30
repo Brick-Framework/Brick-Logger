@@ -101,4 +101,18 @@ public class FileAppenderTest {
     	fileAppender2.close();
     	fileAppender3.close();
     }
+    
+    @Test
+    public void interruptTest() throws IOException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    	FileAppender fileAppender = new FileAppender("/target/interrupt-appender", false);
+    	Field field = fileAppender.getClass().getDeclaredField("worker");
+    	field.setAccessible(true);
+        Thread workerThread = (Thread) field.get(fileAppender);
+        workerThread.interrupt();
+        
+        await().pollDelay(1, TimeUnit.SECONDS).until(() -> true);
+        
+        assertTrue(workerThread.isInterrupted());
+    }
+
 }

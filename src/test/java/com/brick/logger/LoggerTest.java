@@ -1,8 +1,10 @@
 package com.brick.logger;
 
 import static org.awaitility.Awaitility.await;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -16,6 +18,11 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
+
+import com.brick.logger.handler.InfoLogHandler;
+import com.brick.utilities.Config;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class LoggerTest {
@@ -152,5 +159,17 @@ public class LoggerTest {
         logDateTime = LocalDateTime.parse(logData[0]);
         assertTrue(isWithinFiveMinutes(logDateTime));
         assertEquals("ERROR",logData[1]);
+    }
+    
+    @Test
+    public void configException() throws IOException {
+    	try(MockedStatic<Config> mockFactory = Mockito.mockStatic(Config.class)){
+    		mockFactory.when(()->Config.getConfigObject(any()))
+    		.thenThrow(new ArrayIndexOutOfBoundsException("Test Exception"));
+    	
+	    	assertDoesNotThrow(()->{
+	    		new InfoLogHandler();
+	    	});
+    	}
     }
 }
