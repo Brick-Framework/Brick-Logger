@@ -162,14 +162,12 @@ public class LoggerTest {
     }
     
     @Test
-    public void configException() throws IOException {
+    public void configException() {
     	try(MockedStatic<Config> mockFactory = Mockito.mockStatic(Config.class)){
     		mockFactory.when(()->Config.getConfigObject(any()))
     		.thenThrow(new ArrayIndexOutOfBoundsException("Test Exception"));
     	
-	    	assertDoesNotThrow(()->{
-	    		new InfoLogHandler();
-	    	});
+	    	assertDoesNotThrow(InfoLogHandler::new);
     	}
     }
 }
