@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  */
 public class Logger {
 	
-	private static final String NEXT_LINE_INDENT = Logger.NEXT_LINE_INDENT;
+	private static final String NEXT_LINE_INDENT = "\n\t\t";
     
     private static Logger instance;
 
